@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 import { trimTrailingSlash } from "hono/trailing-slash";
 
 import type { Env } from "./env";
+import { internalServerError } from "./errors";
 import { settleHandler } from "./handlers/settle";
 import { supportedHandler } from "./handlers/supported";
 import { verifyHandler } from "./handlers/verify";
@@ -29,5 +31,14 @@ app
   .route("/settle", settleHandler)
   .route("/verify", verifyHandler)
   .route("/supported", supportedHandler);
+
+app.onError((err, c) => {
+  if (err instanceof HTTPException) {
+    return err.getResponse();
+  }
+
+  console.error(err);
+  return c.json(internalServerError, 500);
+});
 
 export default app;
