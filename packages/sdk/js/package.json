@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@newt0n/sdk",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "JavaScript SDK for the newt0n protocol",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newt0n-ai/newt0n.git",
+    "directory": "packages/sdk/js"
+  },
+  "homepage": "https://github.com/newt0n-ai/newt0n#readme",
+  "bugs": {
+    "url": "https://github.com/newt0n-ai/newt0n/issues"
+  },
+  "keywords": [
+    "newt0n",
+    "x402",
+    "sdk",
+    "0g",
+    "micropayments",
+    "payments",
+    "web3",
+    "evm"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./x402/server": {
+      "import": {
+        "types": "./dist/esm/x402/server.d.ts",
+        "default": "./dist/esm/x402/server.js"
+      },
+      "require": {
+        "types": "./dist/cjs/x402/server.d.ts",
+        "default": "./dist/cjs/x402/server.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@tsconfig/node22": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@x402/core": "2.10.0",
+    "@x402/evm": "2.10.0",
+    "tsup": "8.5.1"
+  }
+}
