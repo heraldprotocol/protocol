@@ -1,28 +1,28 @@
-# @newt0n/sdk
+# @newt0n-ai/sdk
 
 JavaScript SDK for the [newt0n](https://github.com/newt0n-ai/newt0n) protocol on the 0G network.
 
 ## Installation
 
 ```sh
-npm install @newt0n/sdk
+npm install @newt0n-ai/sdk
 ```
 
 ```sh
-pnpm add @newt0n/sdk
+pnpm add @newt0n-ai/sdk
 ```
 
 ```sh
-yarn add @newt0n/sdk
+yarn add @newt0n-ai/sdk
 ```
 
 ```sh
-bun add @newt0n/sdk
+bun add @newt0n-ai/sdk
 ```
 
 ## Modules
 
-### `@newt0n/sdk/x402/server`
+### `@newt0n-ai/sdk/x402/server`
 
 Server-side helpers for [x402](https://github.com/x402-foundation/x402) micropayments, preconfigured for 0G networks.
 
@@ -33,7 +33,7 @@ Drop-in replacement for `@x402/evm`'s `ExactEvmScheme`. Adds a money parser that
 Register it on your `x402ResourceServer` for the 0G network you target:
 
 ```ts
-import { ExactEvmScheme } from "@newt0n/sdk/x402/server";
+import { ExactEvmScheme } from "@newt0n-ai/sdk/x402/server";
 
 new x402ResourceServer(facilitator).register(
   "eip155:16661",

@@ -3,7 +3,7 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { ExactEvmScheme } from "@newt0n/sdk/x402/server";
+import { ExactEvmScheme } from "@newt0n-ai/sdk/x402/server";
 
 const app = new Hono();
 const evmAddress = "0xYourEvmAddress";

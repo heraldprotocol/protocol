@@ -1,4 +1,4 @@
-name: Release SDK
+name: Publish SDK
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
           name: sdk-dist
           path: packages/sdk/js/dist
 
-  publish:
+  publish-npm:
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -72,3 +72,34 @@ jobs:
         working-directory: packages/sdk/js
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-github:
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+      - run: bun install --frozen-lockfile
+      - uses: actions/download-artifact@v5
+        with:
+          name: sdk-dist
+          path: packages/sdk/js/dist
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@newt0n-ai"
+      - run: npm publish
+        working-directory: packages/sdk/js
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
