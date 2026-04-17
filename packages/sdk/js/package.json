@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/package.json",
   "name": "@newt0n-ai/sdk",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JavaScript SDK for the newt0n protocol",
   "license": "MIT",
   "repository": {
