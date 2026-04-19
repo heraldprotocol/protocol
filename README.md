@@ -6,7 +6,7 @@
   <p>
     <a href="https://spaceobject.xyz/"><img alt="Website" src="https://img.shields.io/badge/website-spaceobject.xyz-1a1a1a" /></a>
     <a href="https://docs.spaceobject.xyz/"><img alt="Docs" src="https://img.shields.io/badge/docs-read%20the%20docs-blue" /></a>
-    <a href="https://x.com/@spaceobject_xyz"><img alt="Website" src="https://img.shields.io/twitter/follow/spaceobject_xyz" /></a>
+    <a href="https://x.com/spaceobject_xyz"><img alt="Website" src="https://img.shields.io/twitter/follow/spaceobject_xyz" /></a>
   </p>
 </div>
 
