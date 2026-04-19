@@ -10,7 +10,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@spaceobject/sdk": "^0.1.0",
+    "@spaceobject/x402": "^0.1.2",
     "@x402/core": "^2.10.0",
     "@x402/evm": "^2.10.0",
     "@x402/hono": "^2.10.0",

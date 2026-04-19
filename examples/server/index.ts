@@ -1,8 +1,9 @@
-import { ExactEvmScheme } from "@spaceobject/sdk/x402/server";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
+
+import { ExactEvmScheme } from "@spaceobject/x402/server";
 
 const app = new Hono();
 const evmAddress = "0xYourEvmAddress";
