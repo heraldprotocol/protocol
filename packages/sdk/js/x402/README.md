@@ -1,30 +1,28 @@
-# @spaceobject/sdk
+# @spaceobject/x402
 
-JavaScript SDK for the [spaceobject](https://github.com/spaceobject-xyz/spaceobject) protocol on the 0G network.
+JavaScript SDK for the [spaceobject](https://github.com/spaceobject-xyz/spaceobject) x402 protocol on the 0G network.
 
 ## Installation
 
 ```sh
-npm install @spaceobject/sdk
-```
+# npm
+npm install @spaceobject/x402
 
-```sh
-pnpm add @spaceobject/sdk
-```
+# pnpm
+pnpm add @spaceobject/x402
 
-```sh
-yarn add @spaceobject/sdk
-```
+# yarn
+yarn add @spaceobject/x402
 
-```sh
-bun add @spaceobject/sdk
+# bun
+bun add @spaceobject/x402
 ```
 
 ## Modules
 
-### `@spaceobject/sdk/x402/server`
+### `@spaceobject/x402/server`
 
-Server-side helpers for [x402](https://github.com/x402-foundation/x402) micropayments, preconfigured for 0G networks.
+Server-side helpers for sellers to integrate [x402](https://github.com/x402-foundation/x402) micropayments, preconfigured for 0G networks.
 
 #### `ExactEvmScheme`
 
@@ -33,7 +31,7 @@ Drop-in replacement for `@x402/evm`'s `ExactEvmScheme`. Adds a money parser that
 Register it on your `x402ResourceServer` for the 0G network you target:
 
 ```ts
-import { ExactEvmScheme } from "@spaceobject/sdk/x402/server";
+import { ExactEvmScheme } from "@spaceobject/x402/server";
 
 new x402ResourceServer(facilitator).register(
   "eip155:16661",
@@ -47,10 +45,10 @@ A full end-to-end Hono example lives at [`examples/server`](../../../examples/se
 
 ## Supported networks
 
-| Network        | Chain ID             | Asset        | Symbol    | Address                                      |
-| -------------- | -------------------- | ------------ | --------- | -------------------------------------------- |
-| `eip155:16661` | 0G Mainnet           | Bridged USDC | USDC.e    | `0x1f3aa82227281ca364bfb3d253b0f1af1da6473e` |
-| `eip155:16602` | 0G Galileo Testnet   | -            | -         | -                                            |
+| Network        | Chain ID             | Default Asset     | Symbol    | Address                                      |
+| -------------- | -------------------- | ----------------- | --------- | -------------------------------------------- |
+| `eip155:16661` | 0G Mainnet           | Bridged USDC      | USDC.e    | `0x1f3aa82227281ca364bfb3d253b0f1af1da6473e` |
+| `eip155:16602` | 0G Galileo Testnet   | -                 | -         | -                                            |
 
 > 0G testnet has no official stablecoin yet. This table will be updated once one is available.
 

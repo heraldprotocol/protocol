@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@spaceobject/sdk",
+  "name": "@spaceobject/x402",
   "type": "module",
-  "version": "0.1.2",
-  "description": "JavaScript SDK for the spaceobject protocol",
+  "version": "0.1.0",
+  "description": "JavaScript SDK for the integrating x402 on 0G chain",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spaceobject-xyz/spaceobject.git",
-    "directory": "packages/sdk/js"
+    "directory": "packages/sdk/js/x402"
   },
   "homepage": "https://github.com/spaceobject-xyz/spaceobject#readme",
   "bugs": {
@@ -32,14 +32,14 @@
     "typecheck": "tsc --noEmit"
   },
   "exports": {
-    "./x402/server": {
+    "./server": {
       "import": {
-        "types": "./dist/esm/x402/server.d.ts",
-        "default": "./dist/esm/x402/server.js"
+        "types": "./dist/esm/server.d.ts",
+        "default": "./dist/esm/server.js"
       },
       "require": {
-        "types": "./dist/cjs/x402/server.d.ts",
-        "default": "./dist/cjs/x402/server.js"
+        "types": "./dist/cjs/server.d.ts",
+        "default": "./dist/cjs/server.js"
       }
     }
   },

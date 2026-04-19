@@ -7,7 +7,7 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "packages/sdk/*"
+      "packages/sdk/js/*"
     ],
     "catalog": {
       "@biomejs/biome": "2.4.10",

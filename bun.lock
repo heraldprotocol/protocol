@@ -32,9 +32,9 @@
         "wrangler": "4.83.0",
       },
     },
-    "packages/sdk/js": {
-      "name": "@spaceobject/sdk",
-      "version": "0.1.2",
+    "packages/sdk/js/x402": {
+      "name": "@spaceobject/x402",
+      "version": "0.1.0",
       "dependencies": {
         "@x402/core": "2.10.0",
         "@x402/evm": "2.10.0",
@@ -329,7 +329,7 @@
 
     "@spaceobject/facilitator": ["@spaceobject/facilitator@workspace:packages/facilitator"],
 
-    "@spaceobject/sdk": ["@spaceobject/sdk@workspace:packages/sdk/js"],
+    "@spaceobject/x402": ["@spaceobject/x402@workspace:packages/sdk/js/x402"],
 
     "@speed-highlight/core": ["@speed-highlight/core@1.2.15", "", {}, "sha512-BMq1K3DsElxDWawkX6eLg9+CKJrTVGCBAWVuHXVUV2u0s2711qiChLSId6ikYPfxhdYocLNt3wWwSvDiTvFabw=="],
 
