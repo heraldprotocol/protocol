@@ -2,7 +2,7 @@ import { defineConfig } from "tsup";
 
 const baseConfig = {
   entry: {
-    "server/index": "src/server.ts",
+    server: "src/server.ts",
   },
   dts: {
     resolve: true,
