@@ -1,0 +1,127 @@
+---
+title: Quickstart for Sellers
+description: Charge for your API, MCP server, or agent using x402 on 0G.
+---
+
+This guide walks you through putting an x402 paywall in front of an HTTP endpoint using the Space Object facilitator. The example uses [Hono](https://hono.dev), but the same pattern works with any x402 server adapter (Express, Next.js, Fastify, etc.).
+
+## Prerequisites
+
+- A 0G-compatible EVM wallet address to receive payments
+- Node.js 18+ (or any runtime with WebCrypto and `fetch`)
+- A server framework supported by x402 — this guide uses Hono
+
+## 1. Install dependencies
+
+<CodeGroup>
+
+```bash npm
+npm install @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+```
+
+```bash pnpm
+pnpm add @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+```
+
+```bash bun
+bun add @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+```
+
+</CodeGroup>
+
+## 2. Point at the Space Object facilitator
+
+Create an `HTTPFacilitatorClient` targeting `https://facilitator.spaceobject.xyz`. This client handles the `/verify` and `/settle` round trips on your behalf.
+
+```ts server.ts
+import { HTTPFacilitatorClient } from "@x402/core/server";
+import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
+import { Hono } from "hono";
+import { logger } from "hono/logger";
+
+import { ExactEvmScheme } from "@spaceobject/x402/server";
+
+const app = new Hono();
+const evmAddress = "0xYourEvmAddress"; // where payments settle
+
+const facilitatorClient = new HTTPFacilitatorClient({
+  url: "https://facilitator.spaceobject.xyz",
+});
+
+app.use(logger());
+```
+
+## 3. Register the 0G scheme and protect a route
+
+`@spaceobject/x402/server` exports an `ExactEvmScheme` pre-configured for 0G's default stablecoin. It resolves USD-style prices (e.g. `"$0.001"`) to the correct token amount automatically.
+
+```ts server.ts
+app.use(
+  paymentMiddleware(
+    {
+      "GET /weather": {
+        accepts: [
+          {
+            scheme: "exact",
+            price: "$0.001",
+            network: "eip155:16661",
+            payTo: evmAddress,
+          },
+        ],
+        description: "Weather data",
+        mimeType: "application/json",
+      },
+    },
+    new x402ResourceServer(facilitatorClient).register(
+      "eip155:16661",
+      new ExactEvmScheme()
+    )
+  )
+);
+
+app.get("/weather", (c) =>
+  c.json({ report: { weather: "sunny", temperature: 70 } })
+);
+
+export default app;
+```
+
+<Note>
+  Use `"eip155:16602"` instead of `"eip155:16661"` to target 0G Galileo Testnet.
+</Note>
+
+## 4. Test it
+
+Start your server and hit the protected route without a payment:
+
+```bash
+curl -i http://localhost:3000/weather
+```
+
+You should see a `402 Payment Required` response with the `accepts` list in the body. Any x402-compatible client can now pay this endpoint — see [Quickstart for Buyers](/x402/quickstart-for-buyers).
+
+## Route configuration reference
+
+Each protected route declares one or more `accepts` entries. A client picks the first entry it supports.
+
+| Field | Description |
+| --- | --- |
+| `scheme` | `"exact"` for a fixed price. |
+| `price` | USD-style string (e.g. `"$0.001"`) or an atomic token amount as a string. |
+| `network` | CAIP-2 network ID — `eip155:16661` (mainnet) or `eip155:16602` (testnet). |
+| `payTo` | EVM address that receives the payment. |
+
+## Using another framework
+
+The only Space Object-specific wiring is the `ExactEvmScheme` import and the `HTTPFacilitatorClient` URL. The rest is standard x402 — swap `@x402/hono` for `@x402/express`, `@x402/next`, or another adapter and keep the same middleware contract.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Facilitator" icon="shield-check" href="/x402/facilitator">
+    How verification and settlement work on 0G.
+  </Card>
+  <Card title="Supported networks" icon="globe" href="/x402/supported-networks">
+    Network IDs, stablecoins, and addresses.
+  </Card>
+</CardGroup>

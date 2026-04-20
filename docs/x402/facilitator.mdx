@@ -1,0 +1,69 @@
+---
+title: Facilitator
+description: The Space Object facilitator for x402 on 0G Chain.
+---
+
+The Space Object facilitator is a hosted x402 facilitator for 0G Chain. It's the glue between sellers and the chain: sellers forward signed payment payloads to it, and the facilitator verifies them, submits them to 0G, and reports back the result.
+
+<Card title="https://facilitator.spaceobject.xyz" icon="link" href="https://facilitator.spaceobject.xyz">
+  Production endpoint. Free to use. Drop-in compatible with the x402 spec.
+</Card>
+
+## What it does
+
+The facilitator exposes the three endpoints defined by the x402 protocol.
+
+| Endpoint | Method | Purpose |
+| --- | --- | --- |
+| `/verify` | POST | Validates that a signed payment payload matches the server's payment requirements. |
+| `/settle` | POST | Submits a verified payment to 0G and waits for inclusion. |
+| `/supported` | GET | Returns the list of `(network, scheme)` pairs the facilitator can process. |
+
+It does **not** hold funds. Settlement transfers value directly from the buyer's wallet to the seller's `payTo` address; the facilitator only submits the signed transaction.
+
+## Schemes and networks
+
+The facilitator registers both **exact** and **upto** EVM schemes on each supported 0G network:
+
+- `eip155:16661` — 0G Mainnet
+- `eip155:16602` — 0G Galileo Testnet
+
+Query `/supported` at runtime to get the authoritative list:
+
+```bash
+curl https://facilitator.spaceobject.xyz/supported
+```
+
+## Connecting from a server
+
+Point your x402 resource server at the facilitator URL. With `@x402/core`:
+
+```ts
+import { HTTPFacilitatorClient } from "@x402/core/server";
+
+const facilitatorClient = new HTTPFacilitatorClient({
+  url: "https://facilitator.spaceobject.xyz",
+});
+```
+
+Pass this client into your framework's x402 middleware — see [Quickstart for Sellers](/x402/quickstart-for-sellers) for a full example.
+
+## Verification checks
+
+When your server calls `/verify`, the facilitator checks that:
+
+- The signature is valid for the stated network and scheme
+- The authorization covers the requested amount
+- The recipient matches the seller's `payTo`
+- The token is recognized for the declared network
+- The authorization is not expired or replayed
+
+A failed verification returns a machine-readable error so you can respond to the buyer with a clear reason.
+
+## Settlement
+
+On `/settle`, the facilitator broadcasts the authorization to 0G, waits for the receipt, and returns the transaction hash plus success status. The seller forwards this as the `X-PAYMENT-RESPONSE` header so the buyer has an onchain receipt.
+
+## Running your own
+
+The facilitator is open source under [`packages/facilitator`](https://github.com/spaceobject-xyz/spaceobject/tree/main/packages/facilitator). You can self-host on Cloudflare Workers (the default target) or any Node-compatible runtime. Most integrators should use the hosted endpoint.

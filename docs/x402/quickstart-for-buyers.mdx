@@ -1,0 +1,121 @@
+---
+title: Quickstart for Buyers
+description: Pay for x402-protected resources on 0G from a client or agent.
+---
+
+This guide shows how to call an x402-protected endpoint from a Node.js client, with payments settling on 0G through the Space Object facilitator. The same pattern works for AI agents, scripts, or any program that can sign with a private key.
+
+## Prerequisites
+
+- A 0G-compatible EVM private key
+- A funded wallet on 0G Mainnet (USDC.e — swap via [hub.0g.ai](https://hub.0g.ai/swap?network=mainnet)) or a testnet wallet for `eip155:16602`
+- Node.js 18+
+
+## 1. Install dependencies
+
+<CodeGroup>
+
+```bash npm
+npm install @x402/core @x402/evm @x402/fetch viem
+```
+
+```bash pnpm
+pnpm add @x402/core @x402/evm @x402/fetch viem
+```
+
+```bash bun
+bun add @x402/core @x402/evm @x402/fetch viem
+```
+
+</CodeGroup>
+
+<Note>
+  Buyers use the stock x402 client libraries — there is no Space Object-specific client package. The Space Object facilitator is discovered automatically from the seller's `402` response, so your client just needs to know how to sign for 0G.
+</Note>
+
+## 2. Create a signer
+
+Derive a signer from your private key with viem.
+
+```ts client.ts
+import { privateKeyToAccount } from "viem/accounts";
+
+const signer = privateKeyToAccount(
+  process.env.EVM_PRIVATE_KEY as `0x${string}`
+);
+```
+
+## 3. Register the 0G scheme
+
+Create an `x402Client`, register the EVM scheme for the 0G network you target, and wrap `fetch` so payments are handled automatically.
+
+```ts client.ts
+import { x402Client, x402HTTPClient } from "@x402/core/client";
+import { ExactEvmScheme } from "@x402/evm/exact/client";
+import { wrapFetchWithPayment } from "@x402/fetch";
+
+const client = new x402Client();
+client.register("eip155:16661", new ExactEvmScheme(signer));
+
+const fetchWithPayment = wrapFetchWithPayment(fetch, client);
+```
+
+<Note>
+  Use `"eip155:16602"` for 0G Galileo Testnet. You can register both networks on the same client to support either.
+</Note>
+
+## 4. Make a paid request
+
+Call the endpoint as you would any other URL. The wrapper transparently handles the 402 round-trip: it reads payment requirements, signs an authorization, retries the request with `X-PAYMENT`, and returns the final response.
+
+```ts client.ts
+const response = await fetchWithPayment("http://localhost:3000/weather", {
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
+});
+
+const data = await response.json();
+console.log("Response:", data);
+```
+
+## 5. Read the settlement receipt
+
+The seller returns the facilitator's settlement result (including the onchain transaction hash) in the `X-PAYMENT-RESPONSE` header.
+
+```ts client.ts
+if (response.ok) {
+  const httpClient = new x402HTTPClient(client);
+  const paymentResponse = httpClient.getPaymentSettleResponse((name) =>
+    response.headers.get(name)
+  );
+  console.log("Payment settled:", paymentResponse);
+}
+```
+
+## How it works
+
+`wrapFetchWithPayment` adds a transparent retry layer:
+
+1. The first request goes out with no payment.
+2. If the server returns `402`, the wrapper parses the `accepts` list and picks an entry matching a registered scheme.
+3. It signs a payment authorization with your signer and retries with the `X-PAYMENT` header.
+4. The server verifies with the Space Object facilitator, returns the body, and includes the settlement result in `X-PAYMENT-RESPONSE`.
+
+You never talk to the facilitator directly as a buyer — the seller does.
+
+## Using axios instead
+
+Swap `@x402/fetch` for `@x402/axios` if you prefer axios. The registration step is identical.
+
+```ts
+import axios from "axios";
+import { wrapAxiosWithPayment } from "@x402/axios";
+
+const api = wrapAxiosWithPayment(axios.create(), client);
+```
+
+## Next steps
+
+<Card title="Supported networks" icon="globe" href="/x402/supported-networks">
+  Network IDs, stablecoins, and token addresses for 0G.
+</Card>

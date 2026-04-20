@@ -1,0 +1,44 @@
+---
+title: Overview
+description: How x402 works on 0G through the Space Object facilitator.
+---
+
+[x402](https://x402.org) is an open payment standard built on the HTTP `402 Payment Required` status code. It lets any server charge for any resource, and any client (including AI agents) pay for it, with no accounts, API keys, or off-chain escrow.
+
+Space Object runs a production x402 facilitator for **0G Chain** so sellers and buyers can skip the blockchain plumbing and focus on their product.
+
+## The flow
+
+<Steps>
+  <Step title="Client requests a resource">
+    The client makes a normal HTTP request to the seller's endpoint.
+  </Step>
+  <Step title="Server responds with 402">
+    If payment is required, the server returns `402 Payment Required` with an `accepts` list describing price, network, token, and recipient.
+  </Step>
+  <Step title="Client signs a payment">
+    The client picks a payment option it supports, signs a payment authorization (e.g. EIP-3009 `transferWithAuthorization`), and retries the request with the signed payload in the `X-PAYMENT` header.
+  </Step>
+  <Step title="Server verifies with the facilitator">
+    The server forwards the payload to `https://facilitator.spaceobject.xyz/verify`. The facilitator checks the signature, amount, recipient, and network.
+  </Step>
+  <Step title="Server returns the resource and settles">
+    On success, the server returns the response and calls `/settle`. The facilitator submits the transaction to 0G, waits for confirmation, and returns the transaction hash in the `X-PAYMENT-RESPONSE` header.
+  </Step>
+</Steps>
+
+## Roles
+
+- **Seller** — an API, MCP server, or agent that charges for a resource. Runs the x402 middleware and points it at the Space Object facilitator.
+- **Buyer** — a client, script, or agent that pays for resources. Wraps its HTTP client with the x402 SDK and supplies a wallet signer.
+- **Facilitator** — the Space Object service at `https://facilitator.spaceobject.xyz`. Verifies payment payloads, submits them to 0G, and returns settlement results.
+
+## What Space Object adds on top of x402
+
+- **0G Chain support** out of the box — both mainnet (`eip155:16661`) and testnet (`eip155:16602`).
+- **USD-priced endpoints.** `@spaceobject/x402` resolves human prices like `"$0.001"` to the correct token amount for 0G's default stablecoin.
+- **Standards-compatible.** Any x402 client library that speaks the v2 protocol can pay endpoints you protect.
+
+<Card title="Next: integrate as a seller" icon="arrow-right" href="/x402/quickstart-for-sellers">
+  Add x402 payments to your server in a few lines.
+</Card>

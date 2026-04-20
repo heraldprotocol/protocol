@@ -1,0 +1,54 @@
+---
+title: Supported Networks
+description: 0G networks, tokens, and scheme coverage for the Space Object facilitator.
+---
+
+The Space Object facilitator supports the following 0G networks and tokens. Network identifiers follow [CAIP-2](https://chainagnostic.org/CAIPs/caip-2).
+
+## Networks
+
+| Network | CAIP-2 ID | Status |
+| --- | --- | --- |
+| 0G Mainnet | `eip155:16661` | Live |
+| 0G Galileo Testnet | `eip155:16602` | Live |
+
+## Tokens
+
+| Network | Asset | Symbol | Address | Decimals |
+| --- | --- | --- | --- | --- |
+| `eip155:16661` | Bridged USDC | USDC.e | `0x1f3aa82227281ca364bfb3d253b0f1af1da6473e` | 6 |
+| `eip155:16602` | — | — | — | — |
+
+<Note>
+  0G testnet has no official stablecoin yet. A Space Object EIP-3009-compatible test token is on the roadmap so the dev loop works end-to-end without a mainnet wallet.
+</Note>
+
+## Getting USDC.e on 0G Mainnet
+
+Swap for USDC.e via the official 0G bridge:
+
+<Card title="hub.0g.ai" icon="arrow-right-arrow-left" href="https://hub.0g.ai/swap?network=mainnet">
+  Swap into USDC.e on 0G Mainnet.
+</Card>
+
+## Schemes
+
+Both EVM schemes defined by x402 are registered on every supported 0G network:
+
+- **exact** — the buyer authorizes and pays the advertised price.
+- **upto** — the buyer authorizes a maximum; the seller settles for the actual usage.
+
+Use [`GET /supported`](https://facilitator.spaceobject.xyz/supported) to query the authoritative `(network, scheme)` list at runtime.
+
+## Pricing in USD
+
+When you use `ExactEvmScheme` from `@spaceobject/x402/server`, you can price endpoints in USD strings like `"$0.001"`. The scheme resolves the amount against the default stablecoin for the declared network — no hardcoded decimals or token addresses required.
+
+```ts
+import { ExactEvmScheme } from "@spaceobject/x402/server";
+
+new x402ResourceServer(facilitator).register(
+  "eip155:16661",
+  new ExactEvmScheme()
+);
+```

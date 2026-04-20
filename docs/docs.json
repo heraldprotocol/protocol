@@ -1,0 +1,55 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "maple",
+  "name": "Space Object",
+  "colors": {
+    "primary": "#0a0a0a",
+    "light": "#4d4d4d",
+    "dark": "#000000"
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.spaceobject.xyz"
+    }
+  },
+  "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "spaceobject.xyz",
+          "icon": "globe",
+          "href": "https://spaceobject.xyz"
+        },
+        {
+          "anchor": "GitHub",
+          "icon": "github",
+          "href": "https://github.com/spaceobject-xyz/spaceobject"
+        },
+        {
+          "anchor": "X",
+          "icon": "x-twitter",
+          "href": "https://x.com/spaceobject_xyz"
+        }
+      ]
+    },
+    "groups": [
+      {
+        "group": "Welcome",
+        "pages": ["introduction", "faq"]
+      },
+      {
+        "group": "x402",
+        "pages": [
+          "x402/overview",
+          "x402/quickstart-for-sellers",
+          "x402/quickstart-for-buyers",
+          "x402/facilitator",
+          "x402/supported-networks"
+        ]
+      }
+    ]
+  },
+  "search": {
+    "prompt": "Search Space Object docs..."
+  }
+}
