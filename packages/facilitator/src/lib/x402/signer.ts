@@ -1,22 +1,19 @@
 import type { VerifyTypedDataParameters } from "viem";
 import { toFacilitatorEvmSigner } from "@x402/evm";
 
-import type { ZeroGWalletClient } from "../chains/0g";
+import type { EvmWalletClient } from "../chains/evm";
 
-export const createZeroGFacilitatorSigner = (
-  zeroGWalletClient: ZeroGWalletClient
-) =>
+export const createEvmFacilitatorSigner = (client: EvmWalletClient) =>
   toFacilitatorEvmSigner({
-    getCode: (args: { address: `0x${string}` }) =>
-      zeroGWalletClient.getCode(args),
-    address: zeroGWalletClient.account.address,
+    getCode: (args: { address: `0x${string}` }) => client.getCode(args),
+    address: client.account.address,
     readContract: (args: {
       address: `0x${string}`;
       abi: readonly unknown[];
       functionName: string;
       args?: readonly unknown[];
     }) =>
-      zeroGWalletClient.readContract({
+      client.readContract({
         ...args,
         args: args.args || [],
       }),
@@ -27,19 +24,19 @@ export const createZeroGFacilitatorSigner = (
       primaryType: string;
       message: Record<string, unknown>;
       signature: `0x${string}`;
-    }) => zeroGWalletClient.verifyTypedData(args as VerifyTypedDataParameters),
+    }) => client.verifyTypedData(args as VerifyTypedDataParameters),
     writeContract: (args: {
       address: `0x${string}`;
       abi: readonly unknown[];
       functionName: string;
       args: readonly unknown[];
     }) =>
-      zeroGWalletClient.writeContract({
+      client.writeContract({
         ...args,
         args: args.args || [],
       }),
     sendTransaction: (args: { to: `0x${string}`; data: `0x${string}` }) =>
-      zeroGWalletClient.sendTransaction(args),
+      client.sendTransaction(args),
     waitForTransactionReceipt: (args: { hash: `0x${string}` }) =>
-      zeroGWalletClient.waitForTransactionReceipt(args),
+      client.waitForTransactionReceipt(args),
   });

@@ -3,28 +3,23 @@ import type { FacilitatorEvmSigner } from "@x402/evm";
 import { ExactEvmScheme } from "@x402/evm/exact/facilitator";
 import { UptoEvmScheme } from "@x402/evm/upto/facilitator";
 
-import type { ZeroGChain } from "../chains/0g";
+import type { EvmChainId } from "../chains/evm";
 
-export const registerZeroGExactScheme = (
+export const registerEvmExactScheme = (
   facilitator: x402Facilitator,
-  chain: ZeroGChain,
+  chain: EvmChainId,
   signer: FacilitatorEvmSigner
 ) => {
   facilitator.register(
     chain,
     new ExactEvmScheme(signer, { deployERC4337WithEIP6492: true })
   );
-  // facilitator.registerV1(
-  //   chain,
-  //   new ExactEvmScheme(signer, { deployERC4337WithEIP6492: true })
-  // );
 };
 
-export const registerZeroGUptoScheme = (
+export const registerEvmUptoScheme = (
   facilitator: x402Facilitator,
-  chain: ZeroGChain,
+  chain: EvmChainId,
   signer: FacilitatorEvmSigner
 ) => {
   facilitator.register(chain, new UptoEvmScheme(signer));
-  // facilitator.registerV1(chain, new UptoEvmScheme(signer));
 };

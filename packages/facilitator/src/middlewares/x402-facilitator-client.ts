@@ -4,19 +4,24 @@ import { createMiddleware } from "hono/factory";
 import { privateKeyToAccount } from "viem/accounts";
 
 import type { Env } from "../env";
+import type { EvmChainId } from "../lib/chains/evm";
+import { createEvmWalletClient, SUPPORTED_EVM_CHAINS } from "../lib/chains/evm";
 import {
-  createZeroGWalletClient,
-  zeroGMainnetNetworkId,
-  zeroGTestnetNetworkId,
-} from "../lib/chains/0g";
-import {
-  registerZeroGExactScheme,
-  registerZeroGUptoScheme,
+  registerEvmExactScheme,
+  registerEvmUptoScheme,
 } from "../lib/x402/scheme";
-import { createZeroGFacilitatorSigner } from "../lib/x402/signer";
+import { createEvmFacilitatorSigner } from "../lib/x402/signer";
 
 export type X402FacilitatorClientVariables = {
   X402_FACILITATOR: x402Facilitator;
+};
+
+const RPC_URL_BY_CHAIN: Record<EvmChainId, keyof CloudflareBindings> = {
+  "eip155:16661": "ZEROG_MAINNET_RPC_URL",
+  "eip155:16602": "ZEROG_TESTNET_RPC_URL",
+  "eip155:8453": "BASE_MAINNET_RPC_URL",
+  "eip155:84532": "BASE_SEPOLIA_RPC_URL",
+  "eip155:42161": "ARBITRUM_MAINNET_RPC_URL",
 };
 
 export const x402FacilitatorClient = () =>
@@ -25,43 +30,18 @@ export const x402FacilitatorClient = () =>
 
     const signer = privateKeyToAccount(c.env.FACILITATOR_PRIVATE_KEY as Hex);
 
-    const mainnetClient = createZeroGWalletClient(
-      zeroGMainnetNetworkId,
-      c.env.ZEROG_MAINNET_RPC_URL,
-      signer
-    );
-    const testnetClient = createZeroGWalletClient(
-      zeroGTestnetNetworkId,
-      c.env.ZEROG_TESTNET_RPC_URL,
-      signer
-    );
+    for (const chainId of Object.keys(SUPPORTED_EVM_CHAINS) as EvmChainId[]) {
+      const rpcUrlKey = RPC_URL_BY_CHAIN[chainId];
+      const rpcUrl = c.env[rpcUrlKey] as string | undefined;
 
-    const mainnetFacilitatorSigner =
-      createZeroGFacilitatorSigner(mainnetClient);
-    const testnetFacilitatorSigner =
-      createZeroGFacilitatorSigner(testnetClient);
+      if (!rpcUrl) continue;
 
-    registerZeroGExactScheme(
-      facilitator,
-      zeroGMainnetNetworkId,
-      mainnetFacilitatorSigner
-    );
-    registerZeroGUptoScheme(
-      facilitator,
-      zeroGMainnetNetworkId,
-      mainnetFacilitatorSigner
-    );
+      const client = createEvmWalletClient(chainId, rpcUrl, signer);
+      const facilitatorSigner = createEvmFacilitatorSigner(client);
 
-    registerZeroGExactScheme(
-      facilitator,
-      zeroGTestnetNetworkId,
-      testnetFacilitatorSigner
-    );
-    registerZeroGUptoScheme(
-      facilitator,
-      zeroGTestnetNetworkId,
-      testnetFacilitatorSigner
-    );
+      registerEvmExactScheme(facilitator, chainId, facilitatorSigner);
+      registerEvmUptoScheme(facilitator, chainId, facilitatorSigner);
+    }
 
     c.set("X402_FACILITATOR", facilitator);
 
