@@ -28,7 +28,7 @@ export const STABLECOIN_REGISTRY = {
   },
   "eip155:84532": {
     address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-    name: "USD Coin",
+    name: "USDC",
     decimal: 6,
     version: "2",
   },
