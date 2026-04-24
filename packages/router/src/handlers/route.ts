@@ -110,10 +110,9 @@ routeHandler.all(
   async (c) => {
     try {
       const x402Client = c.get("X402_CLIENT");
+      const { url } = c.req.valid("query");
 
       const fetchWithPayment = wrapFetchWithPayment(fetch, x402Client);
-
-      const { url } = c.req.valid("query");
       const response = await fetchWithPayment(url);
 
       return response;

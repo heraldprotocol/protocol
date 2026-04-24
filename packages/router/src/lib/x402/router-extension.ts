@@ -19,9 +19,10 @@ export const createRouterExtension = (): ResourceServerExtension => ({
     const { url } = declaration as RouterExtensionDeclaration;
     const { responseHeaders } = context.transportContext as TransportContext;
 
-    const settlement = JSON.parse(
-      atob(responseHeaders["payment-response"])
-    ) as SettleResponse;
+    if (!responseHeaders?.["payment-response"]) return;
+
+    const paymentResponse = responseHeaders["payment-response"];
+    const settlement = JSON.parse(atob(paymentResponse)) as SettleResponse;
 
     return { url, settlement };
   },
