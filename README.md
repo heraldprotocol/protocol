@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="120x" height="auto" src="assets/heraldprotocol.png" />
+  <img width="50%" height="auto" src="assets/heraldprotocol.png" />
 
   <h1 style="margin-top:20px;">Herald Protocol 🚀</h1>
 
