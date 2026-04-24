@@ -1,4 +1,4 @@
-import type { Address, Hex } from "viem";
+import type { Hex } from "viem";
 import { x402Facilitator } from "@x402/core/facilitator";
 import { createMiddleware } from "hono/factory";
 import { privateKeyToAccount } from "viem/accounts";
@@ -14,7 +14,6 @@ import { createEvmFacilitatorSigner } from "../lib/x402/signer";
 
 export type X402FacilitatorClientVariables = {
   X402_FACILITATOR: x402Facilitator;
-  X402_ROUTER_ADDRESS: Address;
   X402_WALLET_CLIENTS: Partial<Record<EvmChainId, EvmWalletClient>>;
 };
 
@@ -49,7 +48,6 @@ export const x402FacilitatorClient = () =>
     }
 
     c.set("X402_FACILITATOR", facilitator);
-    c.set("X402_ROUTER_ADDRESS", signer.address);
     c.set("X402_WALLET_CLIENTS", walletClients);
 
     return next();
