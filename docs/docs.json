@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
-  "name": "Space Object",
+  "name": "Herald Protocol",
   "logo": {
     "light": "/logo-light.png",
     "dark": "/logo-dark.png"
@@ -14,26 +14,26 @@
   },
   "seo": {
     "metatags": {
-      "canonical": "https://docs.spaceobject.xyz"
+      "canonical": "https://docs.heraldprotocol.xyz"
     }
   },
   "navigation": {
     "global": {
       "anchors": [
         {
-          "anchor": "spaceobject.xyz",
+          "anchor": "heraldprotocol.xyz",
           "icon": "globe",
-          "href": "https://spaceobject.xyz"
+          "href": "https://heraldprotocol.xyz"
         },
         {
           "anchor": "GitHub",
           "icon": "github",
-          "href": "https://github.com/spaceobject-xyz/spaceobject"
+          "href": "https://github.com/heraldprotocol-xyz/heraldprotocol"
         },
         {
           "anchor": "X",
           "icon": "x-twitter",
-          "href": "https://x.com/spaceobject_xyz"
+          "href": "https://x.com/heraldprotocol_xyz"
         }
       ]
     },
@@ -55,6 +55,6 @@
     ]
   },
   "search": {
-    "prompt": "Search Space Object docs..."
+    "prompt": "Search Herald Protocol docs..."
   }
 }

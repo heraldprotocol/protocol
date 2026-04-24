@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "spaceobject",
+  "name": "heraldprotocol",
   "type": "module",
   "private": true,
   "packageManager": "bun@1.3.12",

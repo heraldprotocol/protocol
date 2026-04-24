@@ -1,11 +1,11 @@
 ---
 title: Facilitator
-description: The Space Object facilitator for x402 on 0G Chain.
+description: The Herald Protocol facilitator for x402 on 0G Chain.
 ---
 
-The Space Object facilitator is a hosted x402 facilitator for 0G Chain. It's the glue between sellers and the chain: sellers forward signed payment payloads to it, and the facilitator verifies them, submits them to 0G, and reports back the result.
+The Herald Protocol facilitator is a hosted x402 facilitator for 0G Chain. It's the glue between sellers and the chain: sellers forward signed payment payloads to it, and the facilitator verifies them, submits them to 0G, and reports back the result.
 
-<Card title="https://facilitator.spaceobject.xyz" icon="link" href="https://facilitator.spaceobject.xyz">
+<Card title="https://facilitator.heraldprotocol.xyz" icon="link" href="https://facilitator.heraldprotocol.xyz">
   Production endpoint. Free to use. Drop-in compatible with the x402 spec.
 </Card>
 
@@ -31,7 +31,7 @@ The facilitator registers both **exact** and **upto** EVM schemes on each suppor
 Query `/supported` at runtime to get the authoritative list:
 
 ```bash
-curl https://facilitator.spaceobject.xyz/supported
+curl https://facilitator.heraldprotocol.xyz/supported
 ```
 
 ## Connecting from a server
@@ -42,7 +42,7 @@ Point your x402 resource server at the facilitator URL. With `@x402/core`:
 import { HTTPFacilitatorClient } from "@x402/core/server";
 
 const facilitatorClient = new HTTPFacilitatorClient({
-  url: "https://facilitator.spaceobject.xyz",
+  url: "https://facilitator.heraldprotocol.xyz",
 });
 ```
 
@@ -66,4 +66,4 @@ On `/settle`, the facilitator broadcasts the authorization to 0G, waits for the 
 
 ## Running your own
 
-The facilitator is open source under [`packages/facilitator`](https://github.com/spaceobject-xyz/spaceobject/tree/main/packages/facilitator). You can self-host on Cloudflare Workers (the default target) or any Node-compatible runtime. Most integrators should use the hosted endpoint.
+The facilitator is open source under [`packages/facilitator`](https://github.com/heraldprotocol-xyz/heraldprotocol/tree/main/packages/facilitator). You can self-host on Cloudflare Workers (the default target) or any Node-compatible runtime. Most integrators should use the hosted endpoint.

@@ -1,26 +1,26 @@
-# @spaceobject/x402
+# @heraldprotocol/x402
 
-JavaScript SDK for the [spaceobject](https://github.com/spaceobject-xyz/spaceobject) x402 protocol on the 0G network.
+JavaScript SDK for the [heraldprotocol](https://github.com/heraldprotocol-xyz/heraldprotocol) x402 protocol on the 0G network.
 
 ## Installation
 
 ```sh
 # npm
-npm install @spaceobject/x402
+npm install @heraldprotocol/x402
 
 # pnpm
-pnpm add @spaceobject/x402
+pnpm add @heraldprotocol/x402
 
 # yarn
-yarn add @spaceobject/x402
+yarn add @heraldprotocol/x402
 
 # bun
-bun add @spaceobject/x402
+bun add @heraldprotocol/x402
 ```
 
 ## Modules
 
-### `@spaceobject/x402/server`
+### `@heraldprotocol/x402/server`
 
 Server-side helpers for sellers to integrate [x402](https://github.com/x402-foundation/x402) micropayments, preconfigured for 0G networks.
 
@@ -31,7 +31,7 @@ Drop-in replacement for `@x402/evm`'s `ExactEvmScheme`. Adds a money parser that
 Register it on your `x402ResourceServer` for the 0G network you target:
 
 ```ts
-import { ExactEvmScheme } from "@spaceobject/x402/server";
+import { ExactEvmScheme } from "@heraldprotocol/x402/server";
 
 new x402ResourceServer(facilitator).register(
   "eip155:16661",
@@ -39,7 +39,7 @@ new x402ResourceServer(facilitator).register(
 );
 ```
 
-That's the only spaceobject-specific wiring. Everything else — the facilitator client, `paymentMiddleware`, route definitions — is standard x402. See the [x402 docs](https://github.com/x402-foundation/x402) for framework adapters (Hono, Express, Next.js, etc.).
+That's the only heraldprotocol-specific wiring. Everything else — the facilitator client, `paymentMiddleware`, route definitions — is standard x402. See the [x402 docs](https://github.com/x402-foundation/x402) for framework adapters (Hono, Express, Next.js, etc.).
 
 A full end-to-end Hono example lives at [`examples/server`](../../../examples/server/index.ts).
 

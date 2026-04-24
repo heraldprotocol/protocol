@@ -3,12 +3,12 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { ExactEvmScheme } from "@spaceobject/x402/server";
+import { ExactEvmScheme } from "@heraldprotocol/x402/server";
 
 const app = new Hono();
 const evmAddress = process.env.ZEROG_RECIPIENT_ADDRESS!;
 const facilitatorUrl =
-  process.env.FACILITATOR_URL ?? "https://facilitator.spaceobject.xyz";
+  process.env.FACILITATOR_URL ?? "https://facilitator.heraldprotocol.xyz";
 
 const facilitatorClient = new HTTPFacilitatorClient({
   url: facilitatorUrl,

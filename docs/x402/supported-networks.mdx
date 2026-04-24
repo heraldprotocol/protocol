@@ -1,9 +1,9 @@
 ---
 title: Supported Networks
-description: 0G networks, tokens, and scheme coverage for the Space Object facilitator.
+description: 0G networks, tokens, and scheme coverage for the Herald Protocol facilitator.
 ---
 
-The Space Object facilitator supports the following 0G networks and tokens. Network identifiers follow [CAIP-2](https://chainagnostic.org/CAIPs/caip-2).
+The Herald Protocol facilitator supports the following 0G networks and tokens. Network identifiers follow [CAIP-2](https://chainagnostic.org/CAIPs/caip-2).
 
 ## Networks
 
@@ -20,7 +20,7 @@ The Space Object facilitator supports the following 0G networks and tokens. Netw
 | `eip155:16602` | — | — | — | — |
 
 <Note>
-  0G testnet has no official stablecoin yet. A Space Object EIP-3009-compatible test token is on the roadmap so the dev loop works end-to-end without a mainnet wallet.
+  0G testnet has no official stablecoin yet. A Herald Protocol EIP-3009-compatible test token is on the roadmap so the dev loop works end-to-end without a mainnet wallet.
 </Note>
 
 ## Getting USDC.e on 0G Mainnet
@@ -38,14 +38,14 @@ Both EVM schemes defined by x402 are registered on every supported 0G network:
 - **exact** — the buyer authorizes and pays the advertised price.
 - **upto** — the buyer authorizes a maximum; the seller settles for the actual usage.
 
-Use [`GET /supported`](https://facilitator.spaceobject.xyz/supported) to query the authoritative `(network, scheme)` list at runtime.
+Use [`GET /supported`](https://facilitator.heraldprotocol.xyz/supported) to query the authoritative `(network, scheme)` list at runtime.
 
 ## Pricing in USD
 
-When you use `ExactEvmScheme` from `@spaceobject/x402/server`, you can price endpoints in USD strings like `"$0.001"`. The scheme resolves the amount against the default stablecoin for the declared network — no hardcoded decimals or token addresses required.
+When you use `ExactEvmScheme` from `@heraldprotocol/x402/server`, you can price endpoints in USD strings like `"$0.001"`. The scheme resolves the amount against the default stablecoin for the declared network — no hardcoded decimals or token addresses required.
 
 ```ts
-import { ExactEvmScheme } from "@spaceobject/x402/server";
+import { ExactEvmScheme } from "@heraldprotocol/x402/server";
 
 new x402ResourceServer(facilitator).register(
   "eip155:16661",

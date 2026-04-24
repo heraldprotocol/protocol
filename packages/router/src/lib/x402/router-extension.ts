@@ -1,6 +1,6 @@
 import type { ResourceServerExtension, SettleResponse } from "@x402/core/types";
 
-export const ROUTER_EXTENSION = "spaceobject-router";
+export const ROUTER_EXTENSION = "heraldprotocol-router";
 
 export type RouterExtensionDeclaration = {
   url: string;

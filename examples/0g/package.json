@@ -1,5 +1,5 @@
 {
-  "name": "spaceobject-0g-example",
+  "name": "heraldprotocol-0g-example",
   "type": "module",
   "private": true,
   "devDependencies": {
@@ -9,7 +9,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@spaceobject/x402": "^0.1.2",
+    "@heraldprotocol/x402": "^0.1.2",
     "@x402/core": "^2.10.0",
     "@x402/evm": "^2.10.0",
     "@x402/fetch": "^2.10.0",

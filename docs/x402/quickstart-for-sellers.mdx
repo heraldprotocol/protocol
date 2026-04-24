@@ -3,7 +3,7 @@ title: Quickstart for Sellers
 description: Charge for your API, MCP server, or agent using x402 on 0G.
 ---
 
-This guide walks you through putting an x402 paywall in front of an HTTP endpoint using the Space Object facilitator. The example uses [Hono](https://hono.dev), but the same pattern works with any x402 server adapter (Express, Next.js, Fastify, etc.).
+This guide walks you through putting an x402 paywall in front of an HTTP endpoint using the Herald Protocol facilitator. The example uses [Hono](https://hono.dev), but the same pattern works with any x402 server adapter (Express, Next.js, Fastify, etc.).
 
 ## Prerequisites
 
@@ -16,22 +16,22 @@ This guide walks you through putting an x402 paywall in front of an HTTP endpoin
 <CodeGroup>
 
 ```bash npm
-npm install @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+npm install @heraldprotocol/x402 @x402/core @x402/evm @x402/hono hono
 ```
 
 ```bash pnpm
-pnpm add @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+pnpm add @heraldprotocol/x402 @x402/core @x402/evm @x402/hono hono
 ```
 
 ```bash bun
-bun add @spaceobject/x402 @x402/core @x402/evm @x402/hono hono
+bun add @heraldprotocol/x402 @x402/core @x402/evm @x402/hono hono
 ```
 
 </CodeGroup>
 
-## 2. Point at the Space Object facilitator
+## 2. Point at the Herald Protocol facilitator
 
-Create an `HTTPFacilitatorClient` targeting `https://facilitator.spaceobject.xyz`. This client handles the `/verify` and `/settle` round trips on your behalf.
+Create an `HTTPFacilitatorClient` targeting `https://facilitator.heraldprotocol.xyz`. This client handles the `/verify` and `/settle` round trips on your behalf.
 
 ```ts server.ts
 import { HTTPFacilitatorClient } from "@x402/core/server";
@@ -39,13 +39,13 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { ExactEvmScheme } from "@spaceobject/x402/server";
+import { ExactEvmScheme } from "@heraldprotocol/x402/server";
 
 const app = new Hono();
 const evmAddress = "0xYourEvmAddress"; // where payments settle
 
 const facilitatorClient = new HTTPFacilitatorClient({
-  url: "https://facilitator.spaceobject.xyz",
+  url: "https://facilitator.heraldprotocol.xyz",
 });
 
 app.use(logger());
@@ -53,7 +53,7 @@ app.use(logger());
 
 ## 3. Register the 0G scheme and protect a route
 
-`@spaceobject/x402/server` exports an `ExactEvmScheme` pre-configured for 0G's default stablecoin. It resolves USD-style prices (e.g. `"$0.001"`) to the correct token amount automatically.
+`@heraldprotocol/x402/server` exports an `ExactEvmScheme` pre-configured for 0G's default stablecoin. It resolves USD-style prices (e.g. `"$0.001"`) to the correct token amount automatically.
 
 ```ts server.ts
 app.use(
@@ -113,7 +113,7 @@ Each protected route declares one or more `accepts` entries. A client picks the 
 
 ## Using another framework
 
-The only Space Object-specific wiring is the `ExactEvmScheme` import and the `HTTPFacilitatorClient` URL. The rest is standard x402 — swap `@x402/hono` for `@x402/express`, `@x402/next`, or another adapter and keep the same middleware contract.
+The only Herald Protocol-specific wiring is the `ExactEvmScheme` import and the `HTTPFacilitatorClient` URL. The rest is standard x402 — swap `@x402/hono` for `@x402/express`, `@x402/next`, or another adapter and keep the same middleware contract.
 
 ## Next steps
 

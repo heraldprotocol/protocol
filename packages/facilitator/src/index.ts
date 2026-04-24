@@ -17,7 +17,7 @@ app.use(logger()).use(trimTrailingSlash()).use(cors());
 
 app.get("/", (c) =>
   c.json({
-    title: "spaceobject — 0G x402 facilitator",
+    title: "heraldprotocol — 0G x402 facilitator",
     availableEndpoints: [
       "/verify - Verify a transaction",
       "/settle - Settle a transaction",

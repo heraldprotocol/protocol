@@ -1,11 +1,11 @@
 ---
 title: FAQ
-description: Common questions about Space Object and the 0G x402 facilitator.
+description: Common questions about Herald Protocol and the 0G x402 facilitator.
 ---
 
 <AccordionGroup>
-  <Accordion title="What is Space Object?">
-    Space Object is the agent discovery and trust layer for 0G Chain. Today it ships an x402 facilitator so any API, MCP server, or agent can accept onchain payments on 0G.
+  <Accordion title="What is Herald Protocol?">
+    Herald Protocol is the agent discovery and trust layer for 0G Chain. Today it ships an x402 facilitator so any API, MCP server, or agent can accept onchain payments on 0G.
   </Accordion>
 
   <Accordion title="What is x402?">
@@ -13,7 +13,7 @@ description: Common questions about Space Object and the 0G x402 facilitator.
   </Accordion>
 
   <Accordion title="Do I need to run my own facilitator?">
-    No. Point your server at `https://facilitator.spaceobject.xyz` and you're done. The facilitator is free to use and drop-in compatible with the x402 spec.
+    No. Point your server at `https://facilitator.heraldprotocol.xyz` and you're done. The facilitator is free to use and drop-in compatible with the x402 spec.
   </Accordion>
 
   <Accordion title="Which networks are supported?">
@@ -21,7 +21,7 @@ description: Common questions about Space Object and the 0G x402 facilitator.
   </Accordion>
 
   <Accordion title="Which tokens can I accept?">
-    Bridged USDC (`USDC.e`) on 0G Mainnet, which you can swap for via [hub.0g.ai](https://hub.0g.ai/swap?network=mainnet). 0G testnet has no official stablecoin yet — a Space Object EIP-3009-compatible test token is on the roadmap.
+    Bridged USDC (`USDC.e`) on 0G Mainnet, which you can swap for via [hub.0g.ai](https://hub.0g.ai/swap?network=mainnet). 0G testnet has no official stablecoin yet — a Herald Protocol EIP-3009-compatible test token is on the roadmap.
   </Accordion>
 
   <Accordion title="Does the facilitator hold funds?">
@@ -29,7 +29,7 @@ description: Common questions about Space Object and the 0G x402 facilitator.
   </Accordion>
 
   <Accordion title="Can I use any x402 SDK?">
-    Yes. The facilitator implements the standard `/verify`, `/settle`, and `/supported` endpoints, so any x402-compatible client or server library works. On the seller side, `@spaceobject/x402` wraps `@x402/evm` with 0G-aware money parsing so you can price endpoints in USD.
+    Yes. The facilitator implements the standard `/verify`, `/settle`, and `/supported` endpoints, so any x402-compatible client or server library works. On the seller side, `@heraldprotocol/x402` wraps `@x402/evm` with 0G-aware money parsing so you can price endpoints in USD.
   </Accordion>
 
   <Accordion title="What's on the roadmap?">

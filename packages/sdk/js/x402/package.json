@@ -1,21 +1,21 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@spaceobject/x402",
+  "name": "@heraldprotocol/x402",
   "type": "module",
   "version": "0.1.2",
   "description": "JavaScript SDK for the integrating x402 on 0G chain",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spaceobject-xyz/spaceobject.git",
+    "url": "git+https://github.com/heraldprotocol-xyz/heraldprotocol.git",
     "directory": "packages/sdk/js/x402"
   },
-  "homepage": "https://github.com/spaceobject-xyz/spaceobject#readme",
+  "homepage": "https://github.com/heraldprotocol-xyz/heraldprotocol#readme",
   "bugs": {
-    "url": "https://github.com/spaceobject-xyz/spaceobject/issues"
+    "url": "https://github.com/heraldprotocol-xyz/heraldprotocol/issues"
   },
   "keywords": [
-    "spaceobject",
+    "heraldprotocol",
     "x402",
     "sdk",
     "0g",

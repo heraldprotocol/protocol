@@ -16,7 +16,7 @@ app.use(logger()).use(trimTrailingSlash()).use(cors());
 
 app.get("/", (c) =>
   c.json({
-    title: "spaceobject — 0G x402 router",
+    title: "heraldprotocol — 0G x402 router",
     availableEndpoints: ["/route - Route x402 service"],
   })
 );

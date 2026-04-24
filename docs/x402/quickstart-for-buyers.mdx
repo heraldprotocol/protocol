@@ -3,7 +3,7 @@ title: Quickstart for Buyers
 description: Pay for x402-protected resources on 0G from a client or agent.
 ---
 
-This guide shows how to call an x402-protected endpoint from a Node.js client, with payments settling on 0G through the Space Object facilitator. The same pattern works for AI agents, scripts, or any program that can sign with a private key.
+This guide shows how to call an x402-protected endpoint from a Node.js client, with payments settling on 0G through the Herald Protocol facilitator. The same pattern works for AI agents, scripts, or any program that can sign with a private key.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ bun add @x402/core @x402/evm @x402/fetch viem
 </CodeGroup>
 
 <Note>
-  Buyers use the stock x402 client libraries — there is no Space Object-specific client package. The Space Object facilitator is discovered automatically from the seller's `402` response, so your client just needs to know how to sign for 0G.
+  Buyers use the stock x402 client libraries — there is no Herald Protocol-specific client package. The Herald Protocol facilitator is discovered automatically from the seller's `402` response, so your client just needs to know how to sign for 0G.
 </Note>
 
 ## 2. Create a signer
@@ -99,7 +99,7 @@ if (response.ok) {
 1. The first request goes out with no payment.
 2. If the server returns `402`, the wrapper parses the `accepts` list and picks an entry matching a registered scheme.
 3. It signs a payment authorization with your signer and retries with the `X-PAYMENT` header.
-4. The server verifies with the Space Object facilitator, returns the body, and includes the settlement result in `X-PAYMENT-RESPONSE`.
+4. The server verifies with the Herald Protocol facilitator, returns the body, and includes the settlement result in `X-PAYMENT-RESPONSE`.
 
 You never talk to the facilitator directly as a buyer — the seller does.
 

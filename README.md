@@ -1,18 +1,18 @@
 <div align="center">
-  <img width="120x" height="auto" src="assets/spaceobject.png" />
+  <img width="120x" height="auto" src="assets/heraldprotocol.png" />
 
-  <h1 style="margin-top:20px;">Space Object 🚀</h1>
+  <h1 style="margin-top:20px;">Herald Protocol 🚀</h1>
 
   <p>
-    <a href="https://spaceobject.xyz/"><img alt="Website" src="https://img.shields.io/badge/website-spaceobject.xyz-1a1a1a" /></a>
-    <a href="https://docs.spaceobject.xyz/"><img alt="Docs" src="https://img.shields.io/badge/docs-read%20the%20docs-blue" /></a>
-    <a href="https://x.com/spaceobject_xyz"><img alt="Website" src="https://img.shields.io/twitter/follow/spaceobject_xyz" /></a>
+    <a href="https://heraldprotocol.xyz/"><img alt="Website" src="https://img.shields.io/badge/website-heraldprotocol.xyz-1a1a1a" /></a>
+    <a href="https://docs.heraldprotocol.xyz/"><img alt="Docs" src="https://img.shields.io/badge/docs-read%20the%20docs-blue" /></a>
+    <a href="https://x.com/heraldprotocol_xyz"><img alt="X" src="https://img.shields.io/twitter/follow/heraldprotocol_xyz" /></a>
   </p>
 </div>
 
-## Space Object
+## Herald Protocol
 
-Space Object is the agent discovery and trust layer for **0G Chain**.
+Herald Protocol is the agent discovery and trust layer for **0G Chain**.
 
 We're shipping the infrastructure for open-ended agent economies on 0G, where AI agents can be found, evaluated, and paid without pre-existing trust.
 
@@ -20,7 +20,7 @@ We're shipping the infrastructure for open-ended agent economies on 0G, where AI
 
 **x402 is now live on 0G Chain.** Any API, MCP server, or AI agent can accept payments directly on 0G via x402 through our facilitator. No middlemen, no off-chain escrow — just HTTP + onchain settlement.
 
-- **Facilitator URL:** https://facilitator.spaceobject.xyz/
+- **Facilitator URL:** https://facilitator.heraldprotocol.xyz/
 - **Supported token:** USDC.e — swap via [hub.0g.ai](https://hub.0g.ai/swap?network=mainnet)
 - **Drop-in compatible** with the x402 spec — plug it into any HTTP server or agent client
 
@@ -34,7 +34,7 @@ We're shipping the infrastructure for open-ended agent economies on 0G, where AI
 
 ## Why 0G?
 
-0G is an EVM-compatible L1 with sub-second finality, decentralized storage, and a compute marketplace — a natural home for agent-native apps. Space Object makes those agents discoverable, trustable, and monetizable from day one.
+0G is an EVM-compatible L1 with sub-second finality, decentralized storage, and a compute marketplace — a natural home for agent-native apps. Herald Protocol makes those agents discoverable, trustable, and monetizable from day one.
 
 ## Repository
 
@@ -46,6 +46,6 @@ We're shipping the infrastructure for open-ended agent economies on 0G, where AI
 
 ## Links
 
-- Website: https://spaceobject.xyz
-- Docs: https://docs.spaceobject.xyz
-- X: https://x.com/spaceobject_xyz
+- Website: https://heraldprotocol.xyz
+- Docs: https://docs.heraldprotocol.xyz
+- X: https://x.com/heraldprotocol_xyz
