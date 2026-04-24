@@ -1,6 +1,5 @@
 {
-  "name": "spaceobject-client-example",
-  "module": "index.ts",
+  "name": "spaceobject-0g-example",
   "type": "module",
   "private": true,
   "devDependencies": {
@@ -10,8 +9,12 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@spaceobject/x402": "^0.1.2",
+    "@x402/core": "^2.10.0",
     "@x402/evm": "^2.10.0",
     "@x402/fetch": "^2.10.0",
+    "@x402/hono": "^2.10.0",
+    "hono": "^4.12.14",
     "viem": "^2.48.0"
   }
 }

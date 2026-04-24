@@ -6,7 +6,7 @@ import { logger } from "hono/logger";
 import { ExactEvmScheme } from "@spaceobject/x402/server";
 
 const app = new Hono();
-const evmAddress = "0xYourEvmAddress";
+const evmAddress = process.env.ZEROG_RECIPIENT_ADDRESS!;
 
 const facilitatorClient = new HTTPFacilitatorClient({
   url: "https://facilitator.spaceobject.xyz",

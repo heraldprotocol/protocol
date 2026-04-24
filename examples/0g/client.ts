@@ -5,7 +5,7 @@ import { privateKeyToAccount } from "viem/accounts";
 
 // Create signer
 const signer = privateKeyToAccount(
-  process.env.EVM_PRIVATE_KEY as `0x${string}`
+  process.env.ZEROG_PRIVATE_KEY as `0x${string}`
 );
 
 // Create x402 client and register EVM scheme
