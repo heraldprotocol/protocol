@@ -11,15 +11,38 @@ import type { SupportedNetwork } from "../config/chains";
 import type { Env } from "../env";
 import { SUPPORTED_NETWORKS } from "../config/chains";
 import { internalServerError } from "../errors";
+import { declareRouterExtension } from "../lib/x402/router-extension";
 
 const routeHandler = new Hono<Env>();
 
 export const PAY_TO_ENV_MAPPING = {
   "eip155:16661": "ZEROG_MAINNET_PAY_TO",
-  "eip155:16602": "ZEROG_TESTNET_PAY_TO",
   "eip155:8453": "BASE_MAINNET_PAY_TO",
-  "eip155:84532": "BASE_SEPOLIA_PAY_TO",
 } as const satisfies Record<SupportedNetwork, string>;
+
+type Stablecoin = {
+  address: string;
+  name: string;
+  decimal: number;
+  version: string;
+  assetTransferMethod?: "permit2";
+  supportsEip2612?: true;
+};
+
+export const NETWORK_TOKEN_MAPPING = {
+  "eip155:16661": {
+    address: "0x1f3aa82227281ca364bfb3d253b0f1af1da6473e",
+    decimal: 6,
+    name: "Bridged USDC",
+    version: "2",
+  },
+  "eip155:8453": {
+    address: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    decimal: 6,
+    name: "USD Coin",
+    version: "2",
+  },
+} as const satisfies Record<SupportedNetwork, Stablecoin>;
 
 routeHandler.all(
   "/",
@@ -46,48 +69,40 @@ routeHandler.all(
       decodedPaymentRequiredHeader
     );
 
+    const accepts: PaymentOption[] = SUPPORTED_NETWORKS.flatMap((network) => {
+      const token = NETWORK_TOKEN_MAPPING[network];
+
+      const requirements = paymentRequired.accepts.filter((req) =>
+        Object.keys(NETWORK_TOKEN_MAPPING).includes(req.network)
+      );
+
+      return requirements.map((requirement) => ({
+        scheme: requirement.scheme,
+        network,
+        payTo: c.env[PAY_TO_ENV_MAPPING[network]],
+        price: {
+          asset: token.address,
+          amount: requirement.amount,
+          extra: {
+            ...requirement.extra,
+            name: token.name,
+            version: token.version,
+          },
+        },
+      }));
+    });
+
+    if (accepts.length === 0) return proxyResponse;
+
     return paymentMiddleware(
       {
-        accepts: SUPPORTED_NETWORKS.reduce((acc, network) => {
-          const exact = paymentRequired.accepts.find(
-            (accept) => accept.scheme === "exact" && accept.network === network
-          );
-          if (exact)
-            acc.push({
-              scheme: "exact",
-              network,
-              payTo: c.env[PAY_TO_ENV_MAPPING[network]],
-              price: {
-                asset: exact.asset,
-                amount: exact.amount,
-                extra: exact.extra,
-              },
-              maxTimeoutSeconds: exact.maxTimeoutSeconds,
-              extra: exact.extra,
-            });
-
-          const upto = paymentRequired.accepts.find(
-            (accept) => accept.scheme === "upto" && accept.network === network
-          );
-          if (upto)
-            acc.push({
-              scheme: "upto",
-              network,
-              payTo: c.env[PAY_TO_ENV_MAPPING[network]],
-              price: {
-                asset: upto.asset,
-                amount: upto.amount,
-                extra: upto.extra,
-              },
-              maxTimeoutSeconds: upto.maxTimeoutSeconds,
-              extra: upto.extra,
-            });
-
-          return acc;
-        }, [] as PaymentOption[]),
+        accepts,
         description: paymentRequired.resource.description,
         mimeType: paymentRequired.resource.mimeType,
-        resource: paymentRequired.resource.url,
+        resource: url,
+        extensions: {
+          ...declareRouterExtension({ url }),
+        },
       },
       x402Server
     )(c, next);
@@ -95,12 +110,10 @@ routeHandler.all(
   async (c) => {
     try {
       const x402Client = c.get("X402_CLIENT");
-
-      const fetchWithPayment = wrapFetchWithPayment(fetch, x402Client);
-
       const { url } = c.req.valid("query");
 
-      const response = await fetchWithPayment(url, c.req.raw);
+      const fetchWithPayment = wrapFetchWithPayment(fetch, x402Client);
+      const response = await fetchWithPayment(url);
 
       return response;
     } catch (err) {
