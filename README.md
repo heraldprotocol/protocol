@@ -1,8 +1,6 @@
 <div align="center">
   <img width="50%" height="auto" src="assets/heraldprotocol.png" />
 
-  <h1 style="margin-top:20px;">Herald Protocol 🚀</h1>
-
   <p>
     <a href="https://heraldprotocol.xyz/"><img alt="Website" src="https://img.shields.io/badge/website-heraldprotocol.xyz-1a1a1a" /></a>
     <a href="https://docs.heraldprotocol.xyz/"><img alt="Docs" src="https://img.shields.io/badge/docs-read%20the%20docs-blue" /></a>
