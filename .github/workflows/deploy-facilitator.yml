@@ -63,4 +63,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: packages/facilitator
-          command: deploy --minify
+          command: deploy --minify --name=herald-facilitator
