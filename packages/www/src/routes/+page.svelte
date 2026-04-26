@@ -101,6 +101,8 @@ onMount(() => {
     content="The infrastructure layer for autonomous agent economics. x402 facilitator and cross-chain payment router on 0G Chain."
   />
   <meta name="twitter:image" content="https://heraldprotocol.xyz/banner.jpg" />
+  <meta name="twitter:image:width" content="1200" />
+  <meta name="twitter:image:height" content="630" />
 </svelte:head>
 
 <div
