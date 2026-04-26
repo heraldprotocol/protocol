@@ -69,6 +69,38 @@ onMount(() => {
 
 <svelte:head>
   <title>Herald Protocol — Payment Infrastructure for AI Agents</title>
+  <meta
+    name="description"
+    content="The infrastructure layer for autonomous agent economics. x402 facilitator and cross-chain payment router on 0G Chain."
+  />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heraldprotocol.xyz" />
+  <meta property="og:site_name" content="Herald Protocol" />
+  <meta
+    property="og:title"
+    content="Herald Protocol — Payment Infrastructure for AI Agents"
+  />
+  <meta
+    property="og:description"
+    content="The infrastructure layer for autonomous agent economics. x402 facilitator and cross-chain payment router on 0G Chain."
+  />
+  <meta property="og:image" content="https://heraldprotocol.xyz/banner.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="Herald Protocol — Payment Infrastructure for AI Agents"
+  />
+  <meta
+    name="twitter:description"
+    content="The infrastructure layer for autonomous agent economics. x402 facilitator and cross-chain payment router on 0G Chain."
+  />
+  <meta name="twitter:image" content="https://heraldprotocol.xyz/banner.jpg" />
 </svelte:head>
 
 <div
