@@ -287,7 +287,7 @@ onMount(() => {
           USDC.e.
         </p>
         <a
-          href="https://docs.heraldprotocol.xyz/"
+          href="https://docs.heraldprotocol.xyz/x402/quickstart-for-sellers"
           target="_blank"
           rel="noopener"
           class="group mt-[0.4rem] font-mono font-medium text-[0.85rem] text-heading no-underline tracking-[0.02em] transition-opacity duration-120 ease-out inline-flex items-center gap-[0.6rem] self-start hover:opacity-70 active:opacity-50"
@@ -322,7 +322,7 @@ onMount(() => {
           server or chain.
         </p>
         <a
-          href="https://docs.heraldprotocol.xyz/"
+          href="https://docs.heraldprotocol.xyz/router/quickstart"
           target="_blank"
           rel="noopener"
           class="group mt-[0.4rem] font-mono font-medium text-[0.85rem] text-heading no-underline tracking-[0.02em] transition-opacity duration-120 ease-out inline-flex items-center gap-[0.6rem] self-start hover:opacity-70 active:opacity-50"
