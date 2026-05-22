@@ -6,7 +6,7 @@ import background from "$lib/assets/background.webp";
 // biome-ignore lint/correctness/noUnusedImports: used in template
 import logo from "$lib/assets/logo.png";
 // biome-ignore lint/correctness/noUnusedImports: used in template
-import spaceVideo from "$lib/assets/Space.mp4";
+import spaceVideo from "$lib/assets/space.mp4";
 // biome-ignore lint/correctness/noUnusedImports: used in template
 import space from "$lib/assets/space.png";
 // biome-ignore lint/correctness/noUnusedImports: used in template
